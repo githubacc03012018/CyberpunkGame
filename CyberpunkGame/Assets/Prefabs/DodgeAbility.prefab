@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4377727628328516}
   - component: {fileID: 114198154771887028}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: DodgeAbility
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
