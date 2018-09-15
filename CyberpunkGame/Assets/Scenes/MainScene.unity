@@ -350,11 +350,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 534669902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e0e10ce97328da448b7b525745d9d92, type: 3}
+  m_Script: {fileID: 11500000, guid: 4afda005e8fb6fa4297bcd175086f144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 2
-  attachPoint: {fileID: 0}
 --- !u!1 &553087622
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,8 +365,8 @@ GameObject:
   - component: {fileID: 553087626}
   - component: {fileID: 553087625}
   - component: {fileID: 553087624}
-  - component: {fileID: 553087623}
   - component: {fileID: 553087628}
+  - component: {fileID: 553087623}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -383,11 +382,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 553087622}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84b7efc127a1fbe4cb8b8161193dbdf4, type: 3}
+  m_Script: {fileID: 11500000, guid: 9187e6de1f37e9f438996e30e68aebde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 0}
-  cameraController: {fileID: 0}
   moveSpeed: 10
 --- !u!136 &553087624
 CapsuleCollider:
