@@ -7,30 +7,31 @@ public class PlayerController : MonoBehaviour, IRotator
 {
     #region Fields
     private new Rigidbody rigidbody;
-    public List<Ability> abilities;
     private CameraController cameraController;
+    private Abilities availableAbilities;
+    private List<Ability> abilities;
     #endregion
 
     #region Public properties
     public float moveSpeed = 10f;
 
+
     #endregion
-    
+
     // Use this for initialization
     void Start()
     {
         this.rigidbody = GetComponent<Rigidbody>();
         this.cameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
-        this.abilities = new List<Ability>();
-        DodgeAbility ab = new DodgeAbility();
-        this.abilities.Add(ab);
+        this.availableAbilities = GetComponent<Abilities>();
+        this.abilities = this.availableAbilities.abilities;
     }
 
     // Update is called once per frame
     void Update()
     {
         MovePlayer();
-        Vector3 targetRotation = this.cameraController.GetMouseCoordinatesAndReturnRotation(); 
+        Vector3 targetRotation = this.cameraController.GetMouseCoordinatesAndReturnRotation();
         Rotate(targetRotation);
     }
 
@@ -44,26 +45,20 @@ public class PlayerController : MonoBehaviour, IRotator
 
         if (Input.GetKey("space") && Input.GetKey("d"))
         {
-            foreach (Ability ability in abilities)
+            DodgeAbility foundAbility = abilities.Find(item => item.GetType() == typeof(DodgeAbility)) as DodgeAbility;
+
+            if (foundAbility != null)
             {
-                DodgeAbility dodgeAbility = ability as DodgeAbility;
-                if(dodgeAbility != null)
-                {
-                    
-                    dodgeAbility.Dodge(this.transform, DodgeDirection.Right);
-                }
+                foundAbility.Dodge(this.transform, DodgeDirection.Right);
             }
         }
-        else if(Input.GetKey("space") && Input.GetKey("a"))
+        else if (Input.GetKey("space") && Input.GetKey("a"))
         {
-            foreach (Ability ability in abilities)
+            DodgeAbility foundAbility = abilities.Find(item => item.GetType() == typeof(DodgeAbility)) as DodgeAbility;
+            if (foundAbility != null)
             {
-                DodgeAbility dodgeAbility = ability as DodgeAbility;
-                if (dodgeAbility != null)
-                {
-                    
-                    dodgeAbility.Dodge(this.transform, DodgeDirection.Left);
-                }
+
+                foundAbility.Dodge(this.transform, DodgeDirection.Left);
             }
         }
     }
