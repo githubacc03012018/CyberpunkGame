@@ -23,7 +23,7 @@ GameObject:
   m_Layer: 0
   m_Name: DodgeAbility
   m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -51,5 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddbf89505cb60f24cba10e09e951f4d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 150
-  Cooldown: 0
+  distance: 2
+  Cooldown: 1
