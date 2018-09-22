@@ -25,9 +25,10 @@ public class CameraController : MonoBehaviour, IRotator
 
     public void Rotate(Vector3 targetLocation)
     {
+        targetLocation.x = this.ClampAngle(targetLocation.x, -40.0f, 40.0f);
         this.transform.rotation = Quaternion.Euler(targetLocation);
     }
-     
+
     public Vector3 GetMouseCoordinatesAndReturnRotation()
     {
         float mouseX = Input.GetAxis("Mouse X");
@@ -41,4 +42,15 @@ public class CameraController : MonoBehaviour, IRotator
 
         return targetRotation;
     }
+    private float ClampAngle(float angle, float from, float to)
+    {
+        // accepts e.g. -80, 80
+        if (angle < 0f) angle = 360 + angle;
+        if (angle > 180f)
+        {
+            return Mathf.Max(angle, 360 + from);
+        }
+        return Mathf.Min(angle, to);
+    }
+
 }
