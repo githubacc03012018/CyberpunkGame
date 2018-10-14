@@ -4,19 +4,17 @@ namespace Assets.Scripts.Ability
 {
     public class DodgeAbility : Ability
     {
-        public float distance = 30f;
-
+        public float distance;
         public new float Cooldown;
-
         public override void Upgrade()
         {
             this.Cooldown -= 0.5f;
         }
 
-        public void Dodge(CharacterController controller, DodgeDirection direction)
+        public void Dodge(Transform transform, DodgeDirection direction)
         {
-            Vector3 horizontalDir = controller.transform.right * (int)direction * distance;
-            controller.Move(horizontalDir);
+            Vector3 dodge = transform.right * (int)direction * distance;
+            transform.position += dodge;
         }
     }
 
