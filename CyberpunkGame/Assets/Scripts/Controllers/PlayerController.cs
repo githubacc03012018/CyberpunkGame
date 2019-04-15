@@ -7,14 +7,17 @@ public class PlayerController : MonoBehaviour, IRotator
 {
     #region Fields
     private CameraController cameraController;
+    private float nextFire = 0.0f;
     private Abilities availableAbilities;
     private List<Ability> abilities;
-     #endregion
+    #endregion
 
     #region Public properties
     public float moveSpeed = 10f;
-
-
+    public GameObject bulletPrefab;
+    public Transform bulletSpawnPosition;
+    public float fireRate;
+    public new Camera camera;
     #endregion
 
     // Use this for initialization
@@ -31,12 +34,20 @@ public class PlayerController : MonoBehaviour, IRotator
         MovePlayer();
         Vector3 targetRotation = this.cameraController.GetMouseCoordinatesAndReturnRotation();
         Rotate(targetRotation);
-    }
-    void FixedUpdate()
-    {
-        Dodge();
-    }
+        //Dodge();
+        if (Input.GetMouseButtonDown(1) && Time.time >= nextFire)
+        {
+            if(Physics.Raycast(this.bulletSpawnPosition.position, this.bulletSpawnPosition.TransformDirection(Vector3.forward), out RaycastHit hit, Mathf.Infinity))
+            {
+                Debug.Log("Hit!");
+                Debug.DrawRay(this.bulletSpawnPosition.position, this.bulletSpawnPosition.TransformDirection(Vector3.forward), Color.red);
+            }
 
+            nextFire = Time.time + fireRate;
+        }
+
+    }
+ 
     private void MovePlayer()
     {
         float horizontalMovement = Input.GetAxis("Horizontal");
@@ -56,26 +67,26 @@ public class PlayerController : MonoBehaviour, IRotator
     protected void LateUpdate()
     {
         this.transform.localEulerAngles = new Vector3(0, this.transform.localEulerAngles.y, 0); //constrain rotation
+     
     }
 
     private void Dodge()
     {
+        if (Input.GetKey("space") && (Input.GetKey("d") || Input.GetKey("a")))
         {
-            if (Input.GetKey("space") && (Input.GetKey("d") || Input.GetKey("a")))
+            DodgeAbility foundAbility = abilities.Find(item => item.GetType() == typeof(DodgeAbility)) as DodgeAbility;
+            if (foundAbility != null)
             {
-                DodgeAbility foundAbility = abilities.Find(item => item.GetType() == typeof(DodgeAbility)) as DodgeAbility;
-                if (foundAbility != null)
+                if (Input.GetKey("d"))
                 {
-                    if (Input.GetKey("d"))
-                    {
-                        foundAbility.Dodge(this.transform, DodgeDirection.Right);
-                    }
-                    else if (Input.GetKey("a"))
-                    {
-                        foundAbility.Dodge(this.transform, DodgeDirection.Left);
-
-                    }
+                    foundAbility.Dodge(this.transform, DodgeDirection.Right);
                 }
+                else if (Input.GetKey("a"))
+                {
+                    foundAbility.Dodge(this.transform, DodgeDirection.Left);
+
+                }
+
             }
         }
     }

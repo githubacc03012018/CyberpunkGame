@@ -7,8 +7,6 @@ namespace Assets.Scripts.Ability
     {
         protected float Cooldown { get; set; }
 
-        public virtual void Upgrade()
-        {
-        }
+        public abstract void Upgrade();
     }
 }
